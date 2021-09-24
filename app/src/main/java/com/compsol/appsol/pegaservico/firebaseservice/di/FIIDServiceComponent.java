@@ -11,5 +11,5 @@ import dagger.Component;
 @Singleton
 @Component(modules = {FirebaseModule.class, PegaServicoAppModule.class})
 public interface FIIDServiceComponent {
-    void inject(MyFirebaseInstanceIDService myFirebaseInstanceIDService);
+    void inject(MyFirebaseInstanceIDService  myFirebaseInstanceIDService);
 }
