@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "986360049322",
+    "project_id": "pegaservico",
+    "storage_bucket": "pegaservico.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986360049322:android:af060881d62c9c1b366ad3",
+        "android_client_info": {
+          "package_name": "com.compsol.appsol.pegaservico"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "986360049322-h1ecl8kr0ld4sp612gr91h14sv7d3vea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoU6ne8jV35sJSDDS02ntdyKTeXb-uf1s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "986360049322-h1ecl8kr0ld4sp612gr91h14sv7d3vea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
