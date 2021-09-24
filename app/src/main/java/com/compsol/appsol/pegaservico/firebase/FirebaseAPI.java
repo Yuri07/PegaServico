@@ -59,11 +59,11 @@ public class FirebaseAPI {
             updates.put("status", status);
             getMyUserReference().updateChildren(updates);
 
-            notifyContactsOfConnectionChange(status);
+            //notifyContactsOfConnectionChange(status);
         }
     }
 
-    public void notifyContactsOfConnectionChange(final long status) {
+    /*public void notifyContactsOfConnectionChange(final long status) {
         final String myEmail = getAuthUserEmail();
         getMyHistoricChatsReference().addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -84,6 +84,6 @@ public class FirebaseAPI {
             public void onCancelled(DatabaseError firebaseError) {
             }
         });
-    }
+    }*/
 
 }
