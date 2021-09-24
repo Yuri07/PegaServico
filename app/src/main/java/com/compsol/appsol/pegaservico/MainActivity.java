@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
+    public static final String RECEIVER_INTENT = "RECEIVER_INTENT";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -2,6 +2,7 @@ package com.compsol.appsol.pegaservico.login;
 
 import androidx.annotation.NonNull;
 
+import com.compsol.appsol.pegaservico.entities.User;
 import com.compsol.appsol.pegaservico.firebase.FirebaseAPI;
 import com.compsol.appsol.pegaservico.lib.base.EventBus;
 import com.compsol.appsol.pegaservico.login.events.LoginEvent;
@@ -93,7 +94,7 @@ public class LoginRepositoryImpl implements LoginRepository {
     private void registerNewUser() {
         String email = firebase.getAuthUserEmail();
         if (email != null) {
-            Driver currentUser = new Driver(email, Driver.ONLINE, null);
+            User currentUser = new User(email, User.ONLINE, null);
             myUserReference.setValue(currentUser);
         }
     }
