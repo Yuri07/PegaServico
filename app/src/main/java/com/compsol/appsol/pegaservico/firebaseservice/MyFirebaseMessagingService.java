@@ -5,7 +5,7 @@ import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.compsol.appsol.pegaservico.MainActivity;
+import com.compsol.appsol.pegaservico.main.ui.MainActivity;
 import com.compsol.appsol.pegaservico.firebaseservice.util.NotificationUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;

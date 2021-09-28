@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.compsol.appsol.pegaservico.main.ui.MainActivity;
 import com.compsol.appsol.pegaservico.PegaServicoApp;
 import com.compsol.appsol.pegaservico.R;
 import com.compsol.appsol.pegaservico.login.LoginPresenter;
@@ -22,6 +23,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
@@ -123,7 +125,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void setUserEmail(String email) {
         if (email != null) {
-            String key = TaxiLivreDriverApp.EMAIL_KEY;//app.getEmailKey();
+            String key = PegaServicoApp.EMAIL_KEY;//app.getEmailKey();
             sharedPreferences.edit().putString(key, email).apply();//.commit();//commit() e o que tem no codigo original lesson4.edx
         }
     }

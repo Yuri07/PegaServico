@@ -1,5 +1,6 @@
 package com.compsol.appsol.pegaservico.firebase;
 
+import com.compsol.appsol.pegaservico.entities.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -15,6 +16,9 @@ import java.util.Map;
 public class FirebaseAPI {
 
     private final static String USERS_PATH = "users";
+
+    final static String NOTIFICATION_TOKEN_PATH = "notificationToken";
+    final static String TOKEN_PATH = "token";
 
     private final DatabaseReference databaseReference;
 
@@ -85,5 +89,38 @@ public class FirebaseAPI {
             }
         });
     }*/
+
+    public void logout() {
+        firebaseAuth.signOut();
+        //FirebaseAuth.getInstance().signOut();
+        //notifyContactsOfConnectionChange(User.OFFLINE, true);
+        changeUserConnectionStatus(User.OFFLINE);
+    }
+
+    public void checkForSession(FirebaseActionListenerCallback listener) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();//FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            listener.onSuccess();
+        } else {
+            listener.onError(null);
+        }
+    }
+
+    public void sendTokenToServer(String token, FirebaseActionListenerCallback listener) {
+
+        String userEmail = getAuthUserEmail();
+        if(userEmail!=null) {
+            String userEmailKey = userEmail.replace(".","_");
+            DatabaseReference myTokenReference = databaseReference.getRoot()
+                    .child(NOTIFICATION_TOKEN_PATH)
+                    .child(userEmailKey)
+                    .child(TOKEN_PATH);
+            myTokenReference.setValue(token);
+            listener.onSuccess();
+        }else{
+            listener.onError(null);
+        }
+
+    }
 
 }

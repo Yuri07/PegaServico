@@ -12,8 +12,10 @@ import com.compsol.appsol.pegaservico.lib.base.ImageStorage;
 
 import javax.inject.Singleton;
 
+import dagger.Module;
 import dagger.Provides;
 
+@Module
 public class LibsModule {
 
     private Fragment fragment;

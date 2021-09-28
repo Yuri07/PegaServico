@@ -1,7 +1,9 @@
-package com.compsol.appsol.pegaservico;
+package com.compsol.appsol.pegaservico.main.ui;
 
 import android.os.Bundle;
 
+import com.compsol.appsol.pegaservico.R;
+import com.compsol.appsol.pegaservico.entities.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,11 +14,14 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.compsol.appsol.pegaservico.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainView {
 
     private ActivityMainBinding binding;
 
     public static final String RECEIVER_INTENT = "RECEIVER_INTENT";
+
+    public static final String FILTRO_KEY = "MainActivity_KEY";
+    public static final String MENSAGEM_KEY = "MainActivity_MENSAGEM_KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,38 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+
+
     }
 
+    @Override
+    public void setUIVisibility(boolean enabled) {
+
+    }
+
+    @Override
+    public void navigateToLoginScreen() {
+
+    }
+
+    @Override
+    public void setLoggedUser(User loggedUser) {
+
+    }
+
+    @Override
+    public void logout() {
+
+    }
+
+    @Override
+    public void onSucceessToSaveFirebaseTokenInServer() {
+
+    }
+
+    @Override
+    public void onFailedToSaveFirebaseTokenInServer(String errorMessage) {
+
+    }
 }
