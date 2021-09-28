@@ -12,22 +12,22 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.compsol.appsol.pegaservico.databinding.FragmentNotificationsBinding;
+import com.compsol.appsol.pegaservico.databinding.FragmentPerfilBinding;
 
 public class PerfilFragment extends Fragment {
 
     private PerfilViewModel perfilViewModel;
-    private FragmentNotificationsBinding binding;
+    private FragmentPerfilBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         perfilViewModel =
                 new ViewModelProvider(this).get(PerfilViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentPerfilBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
+        final TextView textView = binding.textPerfil;
         perfilViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

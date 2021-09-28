@@ -12,22 +12,22 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.compsol.appsol.pegaservico.databinding.FragmentDashboardBinding;
+import com.compsol.appsol.pegaservico.databinding.FragmentPegarBinding;
 
 public class PegarFragment extends Fragment {
 
     private PegarViewModel pegarViewModel;
-    private FragmentDashboardBinding binding;
+    private FragmentPegarBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         pegarViewModel =
                 new ViewModelProvider(this).get(PegarViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentPegarBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
+        final TextView textView = binding.textPegar;
         pegarViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

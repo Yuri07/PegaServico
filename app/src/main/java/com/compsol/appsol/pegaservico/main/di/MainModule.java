@@ -27,6 +27,12 @@ public class MainModule {
     private Fragment[] fragments;
     private FragmentManager fragmentManager;
 
+    public MainModule(MainView view, FragmentManager fragmentManager, Fragment[] fragments){
+        this.view = view;
+        this.fragments = fragments;
+        this.fragmentManager = fragmentManager;
+    }
+
     @Provides
     @Singleton
     MainView providesMainView(){

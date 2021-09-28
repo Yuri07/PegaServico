@@ -10,9 +10,11 @@ import androidx.fragment.app.FragmentManager;
 
 import com.compsol.appsol.pegaservico.firebase.di.FirebaseModule;
 import com.compsol.appsol.pegaservico.lib.di.LibsModule;
+import com.compsol.appsol.pegaservico.login.di.DaggerLoginComponent;
 import com.compsol.appsol.pegaservico.login.di.LoginComponent;
 import com.compsol.appsol.pegaservico.login.di.LoginModule;
 import com.compsol.appsol.pegaservico.login.ui.LoginView;
+import com.compsol.appsol.pegaservico.main.di.DaggerMainComponent;
 import com.compsol.appsol.pegaservico.main.di.MainComponent;
 import com.compsol.appsol.pegaservico.main.di.MainModule;
 import com.compsol.appsol.pegaservico.main.ui.MainView;
@@ -52,26 +54,26 @@ public class PegaServicoApp extends Application {
     }
 
     public LoginComponent getLoginComponent(LoginView view) {
-        return null;/*DaggerLoginComponent
+        return DaggerLoginComponent
                 .builder()
-                .taxiLivreDriverAppModule(pegaServicoAppModule)
-                .domainModule(domainModule)
+                .pegaServicoAppModule(pegaServicoAppModule)
+                .firebaseModule(firebaseModule)
                 .libsModule(libsModule)
                 .loginModule(new LoginModule(view))
-                .build();*/
+                .build();
     }
 
     public MainComponent getMainComponent(Context context, MainView view,
                                           FragmentManager manager, Fragment[] fragments) {
         libsModule.setContext(context);
 
-        return null;/*DaggerMainComponent
+        return DaggerMainComponent
                 .builder()
-                .taxiLivreAppModule(pegaServicoAppModule)
-                .domainModule(firebaseModule)
+                .pegaServicoAppModule(pegaServicoAppModule)
+                .firebaseModule(firebaseModule)
                 .libsModule(libsModule)
-                .mainModule(new MainModule(view, manager, mapFragment))
-                .build();*/
+                .mainModule(new MainModule(view, manager, fragments))
+                .build();
     }
 
 }
