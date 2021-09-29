@@ -1,4 +1,4 @@
-package com.compsol.appsol.pegaservico.oferecer;
+package com.compsol.appsol.pegaservico.oferecer.ui;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

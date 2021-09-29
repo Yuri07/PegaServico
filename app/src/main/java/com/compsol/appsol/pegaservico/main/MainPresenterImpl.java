@@ -5,6 +5,8 @@ import com.compsol.appsol.pegaservico.lib.base.EventBus;
 import com.compsol.appsol.pegaservico.main.events.MainEvent;
 import com.compsol.appsol.pegaservico.main.ui.MainView;
 
+import org.greenrobot.eventbus.Subscribe;
+
 public class MainPresenterImpl implements MainPresenter{
 
     EventBus eventBus;
@@ -47,6 +49,7 @@ public class MainPresenterImpl implements MainPresenter{
     }
 
     @Override
+    @Subscribe
     public void onEventMainThread(MainEvent event) {
         switch (event.getEventType()) {
             case MainEvent.onSuccessToRecoverSession:

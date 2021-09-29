@@ -4,6 +4,8 @@ import com.compsol.appsol.pegaservico.lib.base.EventBus;
 import com.compsol.appsol.pegaservico.login.events.LoginEvent;
 import com.compsol.appsol.pegaservico.login.ui.LoginView;
 
+import org.greenrobot.eventbus.Subscribe;
+
 public class LoginPresenterImpl implements LoginPresenter{
 
     EventBus eventBus;
@@ -30,6 +32,7 @@ public class LoginPresenterImpl implements LoginPresenter{
     }
 
     @Override
+    @Subscribe
     public void onEventMainThread(LoginEvent event) {
         switch (event.getEventType()) {
             case LoginEvent.onSignInError:

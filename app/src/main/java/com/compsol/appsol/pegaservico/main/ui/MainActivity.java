@@ -1,19 +1,19 @@
 package com.compsol.appsol.pegaservico.main.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.compsol.appsol.pegaservico.PegaServicoApp;
 import com.compsol.appsol.pegaservico.R;
 import com.compsol.appsol.pegaservico.entities.User;
+import com.compsol.appsol.pegaservico.login.ui.LoginActivity;
 import com.compsol.appsol.pegaservico.main.MainPresenter;
 import com.compsol.appsol.pegaservico.main.di.MainComponent;
-import com.compsol.appsol.pegaservico.oferecer.OferecerFragment;
+import com.compsol.appsol.pegaservico.oferecer.ui.OferecerFragment;
 import com.compsol.appsol.pegaservico.pegar.PegarFragment;
 import com.compsol.appsol.pegaservico.perfil.PerfilFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -22,7 +22,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.compsol.appsol.pegaservico.databinding.ActivityMainBinding;
-import com.google.android.material.navigation.NavigationBarView;
 
 import javax.inject.Inject;
 
@@ -54,7 +53,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         setupInjection();
 
-
+        presenter.onCreate();
+        presenter.checkForSession();
 
     }
 
@@ -65,6 +65,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void navigateToLoginScreen() {
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
 
     }
 
@@ -105,7 +111,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         Fragment[] fragments = new Fragment[]{new OferecerFragment(),
                 new PegarFragment(), new PerfilFragment()};
 
-        MainComponent mainComponent = app.getMainComponent(this, this, getSupportFragmentManager(), fragments);
+        MainComponent mainComponent = app.getMainComponent(this, this,
+                getSupportFragmentManager(), fragments);
         mainComponent.inject(this);
 
     }

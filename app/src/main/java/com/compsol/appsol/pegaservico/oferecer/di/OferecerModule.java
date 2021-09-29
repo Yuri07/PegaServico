@@ -9,7 +9,8 @@ import com.compsol.appsol.pegaservico.oferecer.OferecerInteractorImpl;
 import com.compsol.appsol.pegaservico.oferecer.OferecerPresenter;
 import com.compsol.appsol.pegaservico.oferecer.OferecerPresenterImpl;
 import com.compsol.appsol.pegaservico.oferecer.OferecerRepository;
-import com.compsol.appsol.pegaservico.oferecer.OferecerViewModel;
+import com.compsol.appsol.pegaservico.oferecer.OferecerRepositoryImpl;
+import com.compsol.appsol.pegaservico.oferecer.adapters.MyServiceListAdapter;
 import com.compsol.appsol.pegaservico.oferecer.ui.OferecerView;
 
 import java.util.ArrayList;
@@ -52,8 +53,8 @@ public class OferecerModule {
     }
 
     @Provides @Singleton
-    OferecerListAdapter providesOferecerAdapter(List<ServiceItem> oferecerList, ImageLoader imageLoader) {
-        return new OferecerListAdapter(oferecerList, imageLoader);
+    MyServiceListAdapter providesOferecerAdapter(List<ServiceItem> oferecerList, ImageLoader imageLoader) {
+        return new MyServiceListAdapter(oferecerList, imageLoader);
     }
 
     @Provides @Singleton
