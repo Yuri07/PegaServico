@@ -43,6 +43,7 @@ public class OferecerViewModel extends ViewModel {
         user.setPeriodo(12);
         user.setStatus(1);
         user.setValor(80.0);
+        user.setUrlPhotoUser("url_foto");
 
 
         serviceArrayList = new ArrayList<>();
@@ -52,6 +53,11 @@ public class OferecerViewModel extends ViewModel {
         serviceArrayList.add(user);
         serviceArrayList.add(user);
         serviceArrayList.add(user);
+        serviceArrayList.add(user);
+        serviceArrayList.add(user);
+        serviceArrayList.add(user);
+        serviceArrayList.add(user);
+
     }
 
 }

@@ -42,13 +42,13 @@ public class MyServiceListAdapter extends RecyclerView.Adapter<MyServiceListAdap
 
         String urlPhotoUser = service.getUrlPhotoUser();
         if ((!urlPhotoUser.equals("default"))&&!(urlPhotoUser.equals("url_sh_pr"))&&!(urlPhotoUser.isEmpty()))
-            imageLoader.load(holder.imgAvatar, urlPhotoUser);
+            //imageLoader.load(holder.imgAvatar, urlPhotoUser);
 
         holder.txtNomeUser.setText(service.getNome());
-        holder.txtStatus.setText(service.getStatus());
+        holder.txtStatus.setText(service.getStatus()+"");
         holder.txtData.setText(service.getData());
         holder.txtTime.setText(service.getEntrada());
-        holder.txtPeriod.setText(service.getPeriodo());
+        holder.txtPeriod.setText(service.getPeriodo()+"");
         holder.txtValue.setText(service.getValor()+"");
 
     }
@@ -65,6 +65,10 @@ public class MyServiceListAdapter extends RecyclerView.Adapter<MyServiceListAdap
             //this.notifyDataSetChanged();// usado antes, agora vou tentar usar no observer
             // do oferecerViewModel.getServiceMutableLiveData() em OferecerFragment
         }
+    }
+
+    public void setServicesList(List<ServiceItem> servicesList){
+        this.servicesList = servicesList;
     }
 
     private boolean alreadyInAdapter(ServiceItem newService) {

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.compsol.appsol.pegaservico.PegaServicoApp;
@@ -33,14 +34,14 @@ public class OferecerFragment extends Fragment implements LifecycleOwner, Oferec
 
     @Inject
     MyServiceListAdapter recyclerViewAdapter;
-    @Inject
-    OferecerPresenter presenter;
+    //@Inject
+    //OferecerPresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupInjection();
-        presenter.onCreate();
+        //presenter.onCreate();
     }
 
     private void setupInjection() {
@@ -55,22 +56,17 @@ public class OferecerFragment extends Fragment implements LifecycleOwner, Oferec
         binding = FragmentOferecerBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        /*final TextView textView = binding.textOferecer;
-        oferecerViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
-
         recyclerView = binding.rvOferecer;
 
-        oferecerViewModel.getServiceMutableLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ServiceItem>>() {
+        oferecerViewModel.getServiceMutableLiveData()
+                .observe(getViewLifecycleOwner(), new Observer<ArrayList<ServiceItem>>() {
             @Override
             public void onChanged(ArrayList<ServiceItem> servicesArrayList) {
-                recyclerViewAdapter = new MyServiceListAdapter(this, servicesArrayList);
-                //recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                //recyclerView.setAdapter(recyclerViewAdapter);
+                //recyclerViewAdapter = new MyServiceListAdapter(servicesArrayList,null);
+                if(servicesArrayList!=null)
+                    recyclerViewAdapter.setServicesList(servicesArrayList);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerView.setAdapter(recyclerViewAdapter);
             }
         });
 
