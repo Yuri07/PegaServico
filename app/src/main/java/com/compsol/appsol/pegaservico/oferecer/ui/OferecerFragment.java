@@ -1,10 +1,10 @@
 package com.compsol.appsol.pegaservico.oferecer.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,9 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.compsol.appsol.pegaservico.PegaServicoApp;
 import com.compsol.appsol.pegaservico.databinding.FragmentOferecerBinding;
 import com.compsol.appsol.pegaservico.entities.ServiceItem;
-import com.compsol.appsol.pegaservico.oferecer.OferecerPresenter;
 import com.compsol.appsol.pegaservico.oferecer.adapters.MyServiceListAdapter;
-import com.compsol.appsol.pegaservico.oferecer.ui.OferecerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -30,7 +29,8 @@ public class OferecerFragment extends Fragment implements LifecycleOwner, Oferec
 
     private OferecerViewModel oferecerViewModel;
     private FragmentOferecerBinding binding;
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
+    private FloatingActionButton fab;
 
     @Inject
     MyServiceListAdapter recyclerViewAdapter;
@@ -57,6 +57,7 @@ public class OferecerFragment extends Fragment implements LifecycleOwner, Oferec
         View root = binding.getRoot();
 
         recyclerView = binding.rvOferecer;
+        fab = binding.floatingActionButton;
 
         oferecerViewModel.getServiceMutableLiveData()
                 .observe(getViewLifecycleOwner(), new Observer<ArrayList<ServiceItem>>() {
@@ -70,7 +71,12 @@ public class OferecerFragment extends Fragment implements LifecycleOwner, Oferec
             }
         });
 
-
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ServicoActivity.class));
+            }
+        });
 
         return root;
     }

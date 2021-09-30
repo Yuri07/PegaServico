@@ -1,5 +1,6 @@
 package com.compsol.appsol.pegaservico.oferecer.adapters;
 
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.compsol.appsol.pegaservico.R;
@@ -51,6 +53,24 @@ public class MyServiceListAdapter extends RecyclerView.Adapter<MyServiceListAdap
         holder.txtPeriod.setText(service.getPeriodo()+"");
         holder.txtValue.setText(service.getValor()+"");
 
+        if (position + 1 == getItemCount()) {
+            // It is the last item of the list
+
+            // Set bottom margin to 72dp
+            setBottomMargin(holder.itemView, (int) (72 * Resources.getSystem().getDisplayMetrics().density));
+        } else {
+            // Reset bottom margin back to zero
+            setBottomMargin(holder.itemView, 0);
+        }
+
+    }
+
+    private static void setBottomMargin(View view, int bottomMargin) {//https://gist.github.com/rodrigoborgesdeoliveira/a37b1534969fe4e9ada0bb440b8f4b4b
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, bottomMargin);
+            view.requestLayout();
+        }
     }
 
     @Override
@@ -83,8 +103,12 @@ public class MyServiceListAdapter extends RecyclerView.Adapter<MyServiceListAdap
         return alreadyInAdapter;
     }
 
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.item_service)
+        ConstraintLayout itemService;
         @BindView(R.id.imgAvatar)
         CircleImageView imgAvatar;
         @BindView(R.id.txtNomeUser)

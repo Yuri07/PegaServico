@@ -57,6 +57,12 @@ public class OferecerViewModel extends ViewModel {
         serviceArrayList.add(user);
         serviceArrayList.add(user);
         serviceArrayList.add(user);
+        serviceArrayList.add(user);
+        serviceArrayList.add(user);
+        serviceArrayList.add(user);
+        serviceArrayList.add(user);
+        serviceArrayList.add(user);
+        serviceArrayList.add(user);
 
     }
 

@@ -13,12 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PegaServico">
-
+        <activity
+            android:name=".oferecer.ui.ServicoActivity"
+            android:exported="true" />
         <activity
             android:name=".login.ui.LoginActivity"
             android:exported="true"
-            android:noHistory="true"
-            android:label="@string/title_activity_login" />
+            android:label="@string/title_activity_login"
+            android:noHistory="true" />
         <activity
             android:name=".main.ui.MainActivity"
             android:exported="true"
@@ -29,10 +31,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".firebaseservice.MyFirebaseMessagingService"
             android:stopWithTask="false">
-
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
