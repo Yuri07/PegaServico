@@ -19,6 +19,7 @@ import com.compsol.appsol.pegaservico.PegaServicoApp;
 import com.compsol.appsol.pegaservico.databinding.FragmentOferecerBinding;
 import com.compsol.appsol.pegaservico.entities.ServiceItem;
 import com.compsol.appsol.pegaservico.oferecer.adapters.MyServiceListAdapter;
+import com.compsol.appsol.pegaservico.servico.ui.ServicoActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;

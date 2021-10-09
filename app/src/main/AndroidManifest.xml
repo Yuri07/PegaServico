@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PegaServico">
         <activity
-            android:name=".oferecer.ui.ServicoActivity"
+            android:name=".servico.ui.ServicoActivity"
             android:exported="true" />
         <activity
             android:name=".login.ui.LoginActivity"
