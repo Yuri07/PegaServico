@@ -9,11 +9,13 @@
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.15555555555555556" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.18981481481481483" />
         <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.18981481481481483" />
+        <entry key="app/src/main/res/drawable/rounded_corner.xml" value="0.2140625" />
+        <entry key="app/src/main/res/drawable/rounded_corner_white.xml" value="0.2140625" />
         <entry key="app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout-w936dp/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.21" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19" />
-        <entry key="app/src/main/res/layout/activity_servico.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_servico.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.19791666666666666" />

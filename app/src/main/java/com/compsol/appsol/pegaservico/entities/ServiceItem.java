@@ -12,6 +12,28 @@ public class ServiceItem {
     private int status;
     private String urlPhotoUser;
 
+    public final static int waitingAcceptStatus = 101;
+    public final static int acceptedStatus = 102;
+    public final static int confirmedStatus = 103;
+    public final static int inProgressStatus = 104;
+    public final static int concludedStatus = 105;
+
+    public ServiceItem() {
+
+    }
+
+    public ServiceItem(String email, String nome, String data, String entrada, int periodo,
+                                                double valor, int status, String urlPhotoUser) {
+        this.email = email;
+        this.nome = nome;
+        this.data = data;
+        this.entrada = entrada;
+        this.periodo = periodo;
+        this.valor = valor;
+        this.status = status;
+        this.urlPhotoUser = urlPhotoUser;
+    }
+
     public String getServiceId() {
         return serviceId;
     }

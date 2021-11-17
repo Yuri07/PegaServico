@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,8 +21,11 @@ public class FirebaseAPI {
     final static String NOTIFICATION_TOKEN_PATH = "notificationToken";
     final static String TOKEN_PATH = "token";
 
+    private final static String SERVICES_PATH = "services";
+
     private final DatabaseReference databaseReference;
 
+    private ChildEventListener userDataEventListener;
     private ChildEventListener historicServicesListEventListener;
     private ChildEventListener serviceEventListener;
 
@@ -123,4 +127,50 @@ public class FirebaseAPI {
 
     }
 
+    public void subscribeForDataUser(final FirebaseEventListenerCallback listener) {
+        if(userDataEventListener==null) {
+            userDataEventListener= new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    listener.onChildAdded(dataSnapshot);
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    listener.onCancelled(databaseError);
+                }
+            };
+
+            getMyUserReference().addChildEventListener(userDataEventListener);
+
+        }
+    }
+
+    public void unSubscribeForDataUser() {
+        getMyUserReference().removeEventListener(userDataEventListener);
+    }
+
+    public String createServiceId() {
+        return getServicesReference().push().getKey();
+    }
+
+    public DatabaseReference getServicesReference() {
+        String keySender = getAuthUserEmail().replace(".","_");
+        return databaseReference.getRoot().child(USERS_PATH).child(keySender).child(SERVICES_PATH);
+    }
 }

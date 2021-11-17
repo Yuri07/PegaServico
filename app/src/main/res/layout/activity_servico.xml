@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ECE1E1"
+    android:backgroundTint="#ECE1E1"
     tools:context=".servico.ui.ServicoActivity">
 
     <LinearLayout
@@ -14,63 +16,253 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/wrapperDate"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:layout_marginHorizontal="@dimen/activity_horizontal_margin">
-            <EditText
-                android:id="@+id/editTextDate"
-                android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/act_servi_label_data"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Data"
-                android:inputType="none"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="Data"
+                android:textColor="#0F1012"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/wrapperTime"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/activity_horizontal_margin">
-                <EditText
-                    android:id="@+id/editTextTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Horário de Entrada"
-                    android:inputType="none"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/wrapperPeriod"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/activity_horizontal_margin">
-            <EditText
-                android:id="@+id/editTextPeriod"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/act_servi_label_data_inv"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Horas trabalhadas"
-                android:inputType="number"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="Hora Inicial"
+                android:textSize="28sp"
+                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
-        </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/wrapperValue"
-            android:paddingTop="@dimen/activity_vertical_margin"
+
+            <TextView
+                android:id="@+id/act_servi_label_hora"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="Hora Inicial"
+                android:textColor="#0F1012"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/act_servi_label_data_inv" />
+
+            <TextView
+                android:id="@+id/act_servi_label_hora_inv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="Hora Inicial"
+                android:textSize="28sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/act_servi_label_data_inv" />
+
+
+            <TextView
+                android:id="@+id/act_servi_textview_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:fontFamily="@font/armata"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="10/10/2021"
+                android:textColor="#3E55D5"
+                android:textSize="28sp"
+
+                app:layout_constraintStart_toEndOf="@+id/act_servi_label_data_inv"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/act_servi_textview_hora"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:fontFamily="@font/armata"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="07:00"
+                android:textColor="#3E55D5"
+                android:textSize="28dp"
+                app:layout_constraintStart_toEndOf="@id/act_servi_label_hora_inv"
+                app:layout_constraintTop_toBottomOf="@id/act_servi_label_data_inv" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <EditText
+            android:id="@+id/editTextPeriod"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+            android:ems="10"
+            android:hint="Horas trabalhadas"
+            android:editable="false"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:text="6 horas" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/activity_horizontal_margin">
+
+            <Button
+                android:id="@+id/buttonminus1hr"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:backgroundTint="#ECE1E1"
+                android:text="-1"
+                android:textColor="#3E55D5"
+                app:cornerRadius="120dp"
+                app:strokeColor="#3E55D5"
+                app:strokeWidth="1dp" />
+
+            <Button
+                android:id="@+id/buttonminus6hr"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:textColor="#3E55D5"
+                android:backgroundTint="#ECE1E1"
+                android:text="-6"
+                app:cornerRadius="120dp"
+                app:strokeColor="#3E55D5"
+                app:strokeWidth="1dp" />
+
+            <Button
+                android:id="@+id/buttonplus1hr"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:textColor="#3E55D5"
+                android:backgroundTint="#ECE1E1"
+                android:text="+1"
+                app:cornerRadius="120dp"
+                app:strokeColor="#3E55D5"
+                app:strokeWidth="1dp" />
+
+            <Button
+                android:id="@+id/buttonplus6hr"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:textColor="#3E55D5"
+                android:backgroundTint="#ECE1E1"
+                android:text="+6"
+                app:cornerRadius="120dp"
+                app:strokeColor="#3E55D5"
+                app:strokeWidth="1dp" />
+
+        </LinearLayout>
+
+
+        <!--<com.cottacush.android.currencyedittext.CurrencyEditText
+            android:id="@+id/editTextCurrencyValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+            android:ems="10"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            app:currencySymbol="R$"
+
+            app:useCurrencySymbolAsHint="true"
+            app:maxNumberOfDecimalDigits="2" />-->
+        <EditText
+            android:id="@+id/editTextCurrencyValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+            android:ems="10"
+            android:hint="R$ 0,00"
+            android:inputType="number"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            app:currencySymbol="R$"
+            android:maxLength="11"
+            app:maxNumberOfDecimalDigits="2"
+            app:useCurrencySymbolAsHint="true" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+
+            <Button
+                android:id="@+id/button10rs"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:backgroundTint="#ECE1E1"
+                android:text="+10 R$"
+                android:textColor="#3E55D5"
+                app:cornerRadius="120dp"
+                app:strokeColor="#3E55D5"
+                app:strokeWidth="1dp" />
+
+            <Button
+                android:id="@+id/button50rs"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:text="+50 R$"
+                android:textColor="#3E55D5"
+                android:backgroundTint="#ECE1E1"
+                app:cornerRadius="120dp"
+                app:strokeColor="#3E55D5"
+                app:strokeWidth="1dp"/>
+
+            <Button
+                android:id="@+id/button100rs"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:text="+100 R$"
+                android:textColor="#3E55D5"
+                android:backgroundTint="#ECE1E1"
+                app:cornerRadius="120dp"
+                app:strokeColor="#3E55D5"
+                app:strokeWidth="1dp"/>
+
+        </LinearLayout>
+
+
+        <!--<com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/wrapperValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+            android:layout_marginVertical="@dimen/activity_horizontal_margin">
+
+
 
             <EditText
                 android:id="@+id/editTextValue"
@@ -82,18 +274,31 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>-->
 
     </LinearLayout>
 
 
-
     <Button
         android:id="@+id/confirm_service_button"
-        android:text="Confirm"
-        android:layout_margin="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_margin="12dp"
+        android:background="@drawable/rounded_corner"
+        android:text="Confirmar"
+        app:layout_constraintBottom_toTopOf="@id/cancel_textview" />
+
+    <TextView
+        android:id="@+id/cancel_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancelar"
+        android:textSize="20sp"
+        android:textColor="#3E55D5"
+        android:layout_marginVertical="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
