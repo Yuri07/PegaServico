@@ -16,15 +16,20 @@ import com.compsol.appsol.pegaservico.login.di.LoginComponent;
 import com.compsol.appsol.pegaservico.login.di.LoginModule;
 import com.compsol.appsol.pegaservico.login.ui.LoginView;
 
+
+//import com.compsol.appsol.pegaservico.main.di.DaggerMainComponent;
 import com.compsol.appsol.pegaservico.main.di.DaggerMainComponent;
 import com.compsol.appsol.pegaservico.main.di.MainComponent;
 import com.compsol.appsol.pegaservico.main.di.MainModule;
 import com.compsol.appsol.pegaservico.main.ui.MainView;
 
+
+//import com.compsol.appsol.pegaservico.oferecer.di.DaggerOferecerComponent;
 import com.compsol.appsol.pegaservico.oferecer.di.DaggerOferecerComponent;
 import com.compsol.appsol.pegaservico.oferecer.di.OferecerComponent;
 import com.compsol.appsol.pegaservico.oferecer.di.OferecerModule;
 import com.compsol.appsol.pegaservico.oferecer.ui.OferecerView;
+
 import com.compsol.appsol.pegaservico.servico.di.DaggerServicoComponent;
 import com.compsol.appsol.pegaservico.servico.di.ServicoComponent;
 import com.compsol.appsol.pegaservico.servico.di.ServicoModule;

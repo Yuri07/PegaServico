@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.compsol.appsol.pegaservico.PegaServicoApp;
 import com.compsol.appsol.pegaservico.databinding.FragmentOferecerBinding;
 import com.compsol.appsol.pegaservico.entities.ServiceItem;
+import com.compsol.appsol.pegaservico.main.ui.MainActivity;
 import com.compsol.appsol.pegaservico.oferecer.adapters.MyServiceListAdapter;
 import com.compsol.appsol.pegaservico.servico.ui.ServicoActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -75,7 +76,8 @@ public class OferecerFragment extends Fragment implements LifecycleOwner, Oferec
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), ServicoActivity.class));
+                getActivity().startActivityForResult(new Intent(getContext(), ServicoActivity.class),
+                                                MainActivity.INTENT_REQUEST_CODE_ADD_SERVICO);
             }
         });
 

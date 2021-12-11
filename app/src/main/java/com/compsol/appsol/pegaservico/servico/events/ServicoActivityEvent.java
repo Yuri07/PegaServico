@@ -9,7 +9,7 @@ public class ServicoActivityEvent {
     private User currentUser;
 
     public final static int onServiceConfirmed = 101;
-    public final static int onServiceConfirmedError = 102;
+    public final static int onServiceAddedError = 102;
     public final static int onSuccessToGetDateUser = 103;
     public final static int onFailedToGetDateUser = 104;
 

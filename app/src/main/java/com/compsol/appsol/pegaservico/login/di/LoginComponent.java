@@ -12,7 +12,5 @@ import dagger.Component;
 @Singleton
 @Component(modules = {LoginModule.class, FirebaseModule.class, LibsModule.class, PegaServicoAppModule.class})
 public interface LoginComponent {
-
     void inject(LoginActivity activity);
-
 }

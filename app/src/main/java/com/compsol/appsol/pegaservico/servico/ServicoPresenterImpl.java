@@ -64,15 +64,23 @@ public class ServicoPresenterImpl implements ServicoPresenter{
                 case ServicoActivityEvent.onServiceConfirmed:
                     onServiceConfirmed();
                     break;
-                case ServicoActivityEvent.onServiceConfirmedError:
-                    onServiceConfirmedError();
+                case ServicoActivityEvent.onServiceAddedError:
+                    onServiceConfirmedError(event.getError());
                     break;
                 case ServicoActivityEvent.onFailedToGetDateUser:
-                    onFailedToGetDateUser();
+                    onFailedToGetDateUser(event.getError());
                     break;
             }
         }
 
+    }
+
+
+
+    private void onFailedToGetDateUser(String error) {
+        if(servicoView!=null){
+            servicoView.onFailedToGetDateUser(error);
+        }
     }
 
     private void onServiceConfirmed() {
@@ -81,15 +89,9 @@ public class ServicoPresenterImpl implements ServicoPresenter{
         }
     }
 
-    private void onFailedToGetDateUser() {
+    private void onServiceConfirmedError(String error) {
         if(servicoView!=null){
-            servicoView.onFailedToGetDateUser();
-        }
-    }
-
-    private void onServiceConfirmedError() {
-        if(servicoView!=null){
-            servicoView.onServiceConfirmedError();
+            servicoView.onServiceConfirmedError(error);
         }
     }
 

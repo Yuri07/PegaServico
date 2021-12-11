@@ -1,11 +1,14 @@
 package com.compsol.appsol.pegaservico.servico.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.DialogInterface;
 
 import java.text.NumberFormat;
 import java.util.Calendar;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,8 +25,10 @@ import com.compsol.appsol.pegaservico.databinding.ActivityServicoBinding;
 import com.compsol.appsol.pegaservico.entities.ServiceItem;
 import com.compsol.appsol.pegaservico.entities.ServiceItemBuilder;
 import com.compsol.appsol.pegaservico.entities.User;
+import com.compsol.appsol.pegaservico.main.ui.MainActivity;
 import com.compsol.appsol.pegaservico.servico.ServicoPresenter;
 import com.cottacush.android.currencyedittext.CurrencyEditText;
+import com.google.android.material.snackbar.Snackbar;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -31,6 +36,12 @@ import javax.inject.Inject;
 
 public class ServicoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener, ServicoView {
+
+    public static final String INFO_INTENT_EXTRA_ADD_SERVICE = "INFO_INTENT_EXTRA_ADD_SERVICE";
+    public static final int INTENT_RESULT_SERVICE_ADDED_BACK_BUTTON_PRESSED = 200;
+    public static final int INTENT_RESULT_SERVICE_ADDED_OK = 201;
+    public static final int INTENT_RESULT_SERVICE_ADDED_FAILED = 202;
+
 
     DatePickerDialog datePickerDialog ;
     TimePickerDialog timePickerDialog ;
@@ -50,6 +61,8 @@ public class ServicoActivity extends AppCompatActivity implements DatePickerDial
     private EditText currentEditText_Value;
 
     private TextView textViewDate, textViewHora;
+
+    private ConstraintLayout container;
 
     @Inject
     ServicoPresenter presenter;
@@ -81,6 +94,8 @@ public class ServicoActivity extends AppCompatActivity implements DatePickerDial
 
         String time = Hour+":"+Minute;
         textview_timepicker.setText(time);
+
+        container = binding.layoutServicoContainer;
 
         textview_datepicker.setOnClickListener(new View.OnClickListener() {
             //https://www.freakyjolly.com/android-material-datepicker-and-timepicker-by-wdullaer-tutorial-by-example/
@@ -356,13 +371,15 @@ public class ServicoActivity extends AppCompatActivity implements DatePickerDial
 
                     String valueString = currentEditText_Value.
                             getText().toString().replaceAll("[R$,.\\s]", "");
+                    if(valueString.equals(""))
+                        valueString="0";
 
                     double valueService = Double.parseDouble(valueString) / 100;
 
                     String dataString = textViewDate.getText().toString();
                     String horaString = textViewHora.getText().toString();
 
-                    String periodString = editText_period.getText().toString();
+                    String periodString = editText_period.getText().toString().replaceAll( "[horas\\s]","");
 
                     ServiceItem servico = new ServiceItemBuilder()
                             .email(myUser.getEmail())
@@ -377,9 +394,17 @@ public class ServicoActivity extends AppCompatActivity implements DatePickerDial
 
                     presenter.addService(servico);
 
-
                 }
             }
+        });
+
+        cancelTextView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                voltarParaTelaPrincipalApp(MainActivity.INTENT_RESULT_CODE_ADD_SERVICO_ON_BACK_BUTTON_PRESSED);
+            }
+
         });
 
         setupInjection();
@@ -387,6 +412,8 @@ public class ServicoActivity extends AppCompatActivity implements DatePickerDial
         presenter.onCreate();
 
     }
+
+
 
     private void setupInjection() {
         PegaServicoApp app = (PegaServicoApp) getApplication();
@@ -443,17 +470,26 @@ public class ServicoActivity extends AppCompatActivity implements DatePickerDial
     }
 
     @Override
-    public void onFailedToGetDateUser() {
+    public void onFailedToGetDateUser(String error) {
+        Snackbar.make(container, error, Snackbar.LENGTH_SHORT).show();
         myUser = null;
     }
 
     @Override
-    public void onServiceConfirmedError() {
-
+    public void onServiceConfirmed() {
+        voltarParaTelaPrincipalApp(MainActivity.INTENT_RESULT_CODE_ADD_SERVICO_OK);
     }
 
     @Override
-    public void onServiceConfirmed() {
-
+    public void onServiceConfirmedError(String error) {
+        Snackbar.make(container, error, Snackbar.LENGTH_SHORT).show();
     }
+
+    private void voltarParaTelaPrincipalApp(int statusServiceAdded) {
+        Intent intent = new Intent();
+        //intent.putExtra(INFO_INTENT_EXTRA_ADD_SERVICE, statusServiceAdded);
+        setResult(statusServiceAdded, intent);
+        finish();
+    }
+
 }

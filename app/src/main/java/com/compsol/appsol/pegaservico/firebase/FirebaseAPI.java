@@ -1,6 +1,12 @@
 package com.compsol.appsol.pegaservico.firebase;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.compsol.appsol.pegaservico.entities.ServiceItem;
 import com.compsol.appsol.pegaservico.entities.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -17,15 +23,20 @@ import java.util.Map;
 public class FirebaseAPI {
 
     private final static String USERS_PATH = "users";
+    private final static String HISTORIC_SERVICES_PATH = "historicservices";
+
+    private final static String SERVICES_PATH = "services";
+    private final static String WAITING_SERVICES_PATH = "waitingservices";
+
 
     final static String NOTIFICATION_TOKEN_PATH = "notificationToken";
     final static String TOKEN_PATH = "token";
 
-    private final static String SERVICES_PATH = "services";
+
 
     private final DatabaseReference databaseReference;
 
-    private ChildEventListener userDataEventListener;
+    private ValueEventListener userDataEventListener;
     private ChildEventListener historicServicesListEventListener;
     private ChildEventListener serviceEventListener;
 
@@ -44,12 +55,12 @@ public class FirebaseAPI {
     }
 
     public DatabaseReference getUserReference(String email){
-        DatabaseReference driverReference = null;
+        DatabaseReference userReference = null;
         if(email!=null){
             String emailKey = email.replace(".","_");
-            driverReference = databaseReference.getRoot().child(USERS_PATH).child(emailKey);
+            userReference = databaseReference.getRoot().child(USERS_PATH).child(emailKey);
         }
-        return driverReference;
+        return userReference;
     }
 
     public String getAuthUserEmail(){
@@ -106,7 +117,7 @@ public class FirebaseAPI {
         if (user != null) {
             listener.onSuccess();
         } else {
-            listener.onError(null);
+            listener.onError();
         }
     }
 
@@ -122,41 +133,27 @@ public class FirebaseAPI {
             myTokenReference.setValue(token);
             listener.onSuccess();
         }else{
-            listener.onError(null);
+            listener.onError();
         }
 
     }
 
-    public void subscribeForDataUser(final FirebaseEventListenerCallback listener) {
+    public void subscribeForDataUser(final FirebaseValueEventListenerCallback listener) {
         if(userDataEventListener==null) {
-            userDataEventListener= new ChildEventListener() {
+            userDataEventListener= new ValueEventListener() {
+
                 @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    listener.onChildAdded(dataSnapshot);
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    listener.onDataChange(snapshot);
                 }
 
                 @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    listener.onCancelled(databaseError);
+                public void onCancelled(@NonNull DatabaseError error) {
+                    listener.onCanceled(error);
                 }
             };
 
-            getMyUserReference().addChildEventListener(userDataEventListener);
+            getMyUserReference().addValueEventListener(userDataEventListener);
 
         }
     }
@@ -172,5 +169,59 @@ public class FirebaseAPI {
     public DatabaseReference getServicesReference() {
         String keySender = getAuthUserEmail().replace(".","_");
         return databaseReference.getRoot().child(USERS_PATH).child(keySender).child(SERVICES_PATH);
+    }
+
+    public void addService(ServiceItem service, FirebaseActionListenerCallback listenerCallback) {
+
+        String newServiceId = createServiceId();
+        service.setServiceId(newServiceId);
+
+        Map<String, Object> serviceValues = service.toMap();
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/"+USERS_PATH+"/"+ service.getEmail().replace(".","_")
+                 + "/"+HISTORIC_SERVICES_PATH + "/" + service.getServiceId() , serviceValues);
+        childUpdates.put("/"+SERVICES_PATH+"/" + WAITING_SERVICES_PATH + "/" +
+                                                        service.getServiceId()  , serviceValues);
+        databaseReference.updateChildren(childUpdates, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if(error==null){
+                    listenerCallback.onSuccess();
+                }else{
+                    listenerCallback.onError(error);
+                }
+            }
+        });
+
+        /*String newServiceId = createServiceId();
+        service.setServiceId(newServiceId);
+        DatabaseReference servicesReference = getServicesReference();
+        servicesReference.child(service.getServiceId()).setValue(service)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        listenerCallback.onSuccess();
+                    }
+                }
+
+                ).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        listenerCallback.onError(e);
+                    }
+                }
+        );*/
+
+        /*servicesReference.child(service.getServiceId()).setValue(service, new FirebaseActionListenerCallback() {
+            @Override
+            public void onSuccess() {
+                listenerCallback.onSuccess();
+            }
+
+            @Override
+            public void onError(DatabaseError error) {
+                listenerCallback.onError(error);
+            }
+        });*/
     }
 }

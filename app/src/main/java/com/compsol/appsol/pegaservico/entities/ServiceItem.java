@@ -1,5 +1,10 @@
 package com.compsol.appsol.pegaservico.entities;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class ServiceItem {
 
     private String serviceId;
@@ -105,4 +110,21 @@ public class ServiceItem {
     public void setUrlPhotoUser(String urlPhotoUser) {
         this.urlPhotoUser = urlPhotoUser;
     }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("serviceId", serviceId);
+        result.put("email", email);
+        result.put("nome", nome);
+        result.put("data", data);
+        result.put("entrada", entrada);
+        result.put("periodo", periodo);
+        result.put("valor", valor);
+        result.put("status", status);
+        result.put("urlPhotoUser", urlPhotoUser);
+
+        return result;
+    }
+
 }

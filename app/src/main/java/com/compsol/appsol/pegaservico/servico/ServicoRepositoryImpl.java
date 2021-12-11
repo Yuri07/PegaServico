@@ -4,14 +4,12 @@ import com.compsol.appsol.pegaservico.entities.ServiceItem;
 import com.compsol.appsol.pegaservico.entities.User;
 import com.compsol.appsol.pegaservico.firebase.FirebaseAPI;
 import com.compsol.appsol.pegaservico.firebase.FirebaseActionListenerCallback;
-import com.compsol.appsol.pegaservico.firebase.FirebaseEventListenerCallback;
+import com.compsol.appsol.pegaservico.firebase.FirebaseValueEventListenerCallback;
 import com.compsol.appsol.pegaservico.lib.base.EventBus;
 import com.compsol.appsol.pegaservico.servico.events.ServicoActivityEvent;
-import com.compsol.appsol.pegaservico.servico.ui.ServicoActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 public class ServicoRepositoryImpl implements ServicoRepository{
 
@@ -27,32 +25,17 @@ public class ServicoRepositoryImpl implements ServicoRepository{
 
     @Override
     public void subscribeForDataUser() {
-        firebase.subscribeForDataUser(new FirebaseEventListenerCallback(){
+        firebase.subscribeForDataUser(new FirebaseValueEventListenerCallback(){
 
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
 
                 post(ServicoActivityEvent.onSuccessToGetDateUser, user);
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCanceled(DatabaseError error) {
                 post(ServicoActivityEvent.onFailedToGetDateUser, error.getMessage());
             }
         });
@@ -65,11 +48,32 @@ public class ServicoRepositoryImpl implements ServicoRepository{
 
     @Override
     public void addService(ServiceItem service) {
-        String newServiceId = firebase.createServiceId();
-        service.setServiceId(newServiceId);
-        DatabaseReference servicesReference = firebase.getServicesReference();
-        servicesReference.child(service.getServiceId()).setValue(service);
+
+        firebase.addService(service, new FirebaseActionListenerCallback(){
+            @Override
+            public void onSuccess() {
+                post(ServicoActivityEvent.onServiceConfirmed);
+            }
+
+            @Override
+            public void onError(DatabaseError error) {
+                post(ServicoActivityEvent.onServiceAddedError, error.getMessage());
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+
     }
+
+
 
 
     /*@Override
@@ -105,6 +109,10 @@ public class ServicoRepositoryImpl implements ServicoRepository{
     private void postOnSuccessRetrieveDataUser(DataSnapshot snapshot){
         User currentUser = snapshot.getValue(User.class);//null caso seja a primeira vez que o metodo e executado para esse usuario
         post(ServicoActivityEvent.onSuccessToGetDateUser, currentUser);
+    }
+
+    private void post(int onServiceConfirmed) {
+        post(onServiceConfirmed, null, null);
     }
 
     private void post(int type, User currentUser){

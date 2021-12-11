@@ -1,6 +1,5 @@
 package com.compsol.appsol.pegaservico.servico.di;
 
-
 import com.compsol.appsol.pegaservico.firebase.FirebaseAPI;
 import com.compsol.appsol.pegaservico.lib.base.EventBus;
 import com.compsol.appsol.pegaservico.servico.ServicoInteractor;
@@ -23,6 +22,12 @@ public class ServicoModule {
 
     public ServicoModule(ServicoView view) {
         this.view = view;
+    }
+
+    @Provides
+    @Singleton
+    ServicoView providesServicoView(){
+        return this.view;
     }
 
     @Provides

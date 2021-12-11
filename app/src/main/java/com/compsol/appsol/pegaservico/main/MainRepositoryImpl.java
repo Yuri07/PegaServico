@@ -65,6 +65,16 @@ public class MainRepositoryImpl implements MainRepository{
                 //Log.d("d", "Nao existe sessao aberta no servidor: metodo post");
                 post(MainEvent.onFailedToRecoverSession, "Falha em recuperar sessao");
             }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+
+            @Override
+            public void onError() {
+
+            }
         });
     }
 
@@ -110,6 +120,16 @@ public class MainRepositoryImpl implements MainRepository{
             @Override
             public void onError(DatabaseError error) {
                 post(MainEvent.onFailedToSaveFirebaseTokenInServer, "Usuario nulo");
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+
+            @Override
+            public void onError() {
+
             }
         });
 

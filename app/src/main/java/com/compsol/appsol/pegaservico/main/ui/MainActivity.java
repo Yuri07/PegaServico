@@ -15,13 +15,16 @@ import com.compsol.appsol.pegaservico.perfil.PerfilFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.compsol.appsol.pegaservico.databinding.ActivityMainBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import javax.inject.Inject;
 
@@ -31,13 +34,29 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     public static final String RECEIVER_INTENT = "RECEIVER_INTENT";
 
+    public final static int INTENT_REQUEST_CODE_ADD_SERVICO = 200;
+    public final static int INTENT_RESULT_CODE_ADD_SERVICO_OK = 201;
+    public final static int INTENT_RESULT_CODE_ADD_SERVICO_FAILED = 202;
+    public final static int INTENT_RESULT_CODE_ADD_SERVICO_ON_BACK_BUTTON_PRESSED = 203;
+    public static final String MESSAGE_SERVICO_ADDED_OK = "Serviço salvo com sucesso";
+    public static final String MESSAGE_SERVICO_ADDED_FAILED = "Ocorreu uma falha ao tentar salvar o serviço";
+
+
+
+
     public static final String FILTRO_KEY = "MainActivity_KEY";
     public static final String MENSAGEM_KEY = "MainActivity_MENSAGEM_KEY";
+
+    ConstraintLayout container;
 
     PegaServicoApp app = null;
 
     @Inject
     MainPresenter presenter;
+    /*@Inject
+    FragmentManager fragmentManager;
+    @Inject
+    Fragment[] fragments;*/
 
 
     @Override
@@ -53,8 +72,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         setupInjection();
 
+        container = binding.containerMainActivity;
+
         presenter.onCreate();
         presenter.checkForSession();
+
+
 
     }
 
@@ -101,7 +124,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_oferecer, R.id.navigation_pegar, R.id.navigation_perfil)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        NavController navController = Navigation.findNavController(this,
+                                                R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
@@ -113,8 +137,21 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         MainComponent mainComponent = app.getMainComponent(this, this,
                 getSupportFragmentManager(), fragments);
+
         mainComponent.inject(this);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);//https://stackoverflow.com/questions/6147884/onactivityresult-is-not-being-called-in-fragment
+        if(requestCode==INTENT_REQUEST_CODE_ADD_SERVICO ){
+            if(resultCode==INTENT_RESULT_CODE_ADD_SERVICO_OK){
+                Snackbar.make(container, MESSAGE_SERVICO_ADDED_OK, Snackbar.LENGTH_SHORT).show();
+            }else if(resultCode==INTENT_RESULT_CODE_ADD_SERVICO_FAILED){
+                    Snackbar.make(container, MESSAGE_SERVICO_ADDED_FAILED, Snackbar.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }
