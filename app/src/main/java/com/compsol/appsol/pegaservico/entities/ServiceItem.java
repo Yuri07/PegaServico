@@ -16,6 +16,7 @@ public class ServiceItem {
     private double valor;
     private int status;
     private String urlPhotoUser;
+    private String receiverEmail;
 
     public final static int waitingAcceptStatus = 101;
     public final static int acceptedStatus = 102;
@@ -111,6 +112,14 @@ public class ServiceItem {
         this.urlPhotoUser = urlPhotoUser;
     }
 
+    public String getReceiverEmail() {
+        return receiverEmail;
+    }
+
+    public void setReceiverEmail(String receiverEmail) {
+        this.receiverEmail = receiverEmail;
+    }
+
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
@@ -123,6 +132,7 @@ public class ServiceItem {
         result.put("valor", valor);
         result.put("status", status);
         result.put("urlPhotoUser", urlPhotoUser);
+        result.put("receiverEmail", receiverEmail);
 
         return result;
     }

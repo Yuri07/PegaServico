@@ -38,7 +38,7 @@ public class FirebaseAPI {
 
     private ValueEventListener userDataEventListener;
     private ChildEventListener historicServicesListEventListener;
-    private ChildEventListener serviceEventListener;
+    private ChildEventListener servicesEventListener;
 
     private final StorageReference storageReference;
 
@@ -178,10 +178,13 @@ public class FirebaseAPI {
 
         Map<String, Object> serviceValues = service.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
+
         childUpdates.put("/"+USERS_PATH+"/"+ service.getEmail().replace(".","_")
                  + "/"+HISTORIC_SERVICES_PATH + "/" + service.getServiceId() , serviceValues);
+
         childUpdates.put("/"+SERVICES_PATH+"/" + WAITING_SERVICES_PATH + "/" +
                                                         service.getServiceId()  , serviceValues);
+
         databaseReference.updateChildren(childUpdates, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
@@ -224,4 +227,58 @@ public class FirebaseAPI {
             }
         });*/
     }
+
+    public void subscribeForServicesOfferedUpates(final FirebaseChildEventListenerCallback listener) {
+        if(servicesEventListener==null) {
+            servicesEventListener= new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    listener.onChildAdded(dataSnapshot);
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    listener.onCancelled(databaseError);
+                }
+            };
+
+            getOfferedServicessReference().addChildEventListener(servicesEventListener);
+
+        }
+    }
+
+    public void unSubscribeForChatUpdates() {
+
+        getOfferedServicessReference().removeEventListener(servicesEventListener);
+        servicesEventListener = null;
+
+    }
+
+    public DatabaseReference getOfferedServicessReference(){
+        String keyUser = getAuthUserEmail().replace(".","_");
+
+
+        //String keyChat = keyReceiver + SEPARATOR + keySender;
+        /*if (keySender.compareTo(keyReceiver) > 0) {//Esse método retorna um numero inteiro. Se ele for menor do que zero, o primeiro argumento é "menor" (alfabeticamente, nesse caso) que o segundo; maior que zero se o primeiro for "maior" que o segundo, e igual a zero se eles forem iguais. Esse método diferencia maiúsculas de minúsuclas. Se não quiser isso, use o compareToIgnoreCase
+            keyChat = keyReceiver + SEPARATOR + keySender;//sempre o primeiro em ordem alfabetica vem primeiro
+        }*/
+        return databaseReference.getRoot().child(USERS_PATH).child(keyUser).child(HISTORIC_SERVICES_PATH);
+    }
+
+
 }

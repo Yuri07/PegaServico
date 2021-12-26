@@ -68,12 +68,12 @@ public class MainRepositoryImpl implements MainRepository{
 
             @Override
             public void onError(Exception e) {
-
+                post(MainEvent.onFailedToRecoverSession, "Falha em recuperar sessao");
             }
 
             @Override
             public void onError() {
-
+                post(MainEvent.onFailedToRecoverSession, "Falha em recuperar sessao");
             }
         });
     }

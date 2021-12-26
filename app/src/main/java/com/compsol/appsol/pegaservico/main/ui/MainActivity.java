@@ -63,20 +63,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
         app = (PegaServicoApp) getApplication();
-
-        setupBottomNavigationView();
 
         setupInjection();
 
-        container = binding.containerMainActivity;
-
         presenter.onCreate();
         presenter.checkForSession();
-
 
 
     }
@@ -99,6 +91,17 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void setLoggedUser(User loggedUser) {
+        setupMainScreen();
+    }
+
+    private void setupMainScreen() {
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        container = binding.containerMainActivity;
+
+        setupBottomNavigationView();
 
     }
 
@@ -132,8 +135,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     private void setupInjection() {
 
-        Fragment[] fragments = new Fragment[]{new OferecerFragment(),
-                new PegarFragment(), new PerfilFragment()};
+        //Fragment[] fragments = new Fragment[]{new OferecerFragment(),
+        //        new PegarFragment(), new PerfilFragment()};
+        Fragment[] fragments = null;
 
         MainComponent mainComponent = app.getMainComponent(this, this,
                 getSupportFragmentManager(), fragments);

@@ -4,7 +4,7 @@ import com.compsol.appsol.pegaservico.entities.ServiceItem;
 
 public interface OferecerView {
 
-    void onRatingAdded(ServiceItem rating);
-    void onRatingError(String error);
+    void onServiceReceived(ServiceItem service);
+    void onServiceReceivedError(String error);
 
 }

@@ -27,34 +27,45 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-public class OferecerFragment extends Fragment implements LifecycleOwner, OferecerView {
+public class OferecerFragment extends Fragment implements LifecycleOwner{//}, OferecerView {
 
     private OferecerViewModel oferecerViewModel;
     private FragmentOferecerBinding binding;
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
 
-    @Inject
     MyServiceListAdapter recyclerViewAdapter;
+    //@Inject
+    //MyServiceListAdapter recyclerViewAdapter;
     //@Inject
     //OferecerPresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupInjection();
+        //setupInjection();
         //presenter.onCreate();
     }
 
-    private void setupInjection() {
+    /*private void setupInjection() {
         PegaServicoApp app = (PegaServicoApp) getActivity().getApplication();
         app.getOferecerComponent(this, this).inject(this);
-    }
+    }*/
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        oferecerViewModel = new ViewModelProvider(this).get(OferecerViewModel.class);
 
+        //oferecerViewModel = new ViewModelProvider(this).get(OferecerViewModel.class);
+
+        PegaServicoApp app = (PegaServicoApp) getActivity().getApplication();
+
+        oferecerViewModel = new ViewModelProvider(this, new OferecerViewModelFactory(this, app)).get(OferecerViewModel.class);
+        //    MyViewModel myViewModel = ViewModelProvider(this, new MyViewModelFactory(this.getApplication(), "my awesome param")).get(MyViewModel.class);
+        //https://stackoverflow.com/questions/46283981/android-viewmodel-additional-arguments
+
+        oferecerViewModel.onCreate();
+
+        //recyclerViewAdapter = oferecerViewModel.getRecyclerViewAdapter();
         binding = FragmentOferecerBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -67,9 +78,11 @@ public class OferecerFragment extends Fragment implements LifecycleOwner, Oferec
             public void onChanged(ArrayList<ServiceItem> servicesArrayList) {
                 //recyclerViewAdapter = new MyServiceListAdapter(servicesArrayList,null);
                 if(servicesArrayList!=null)
-                    recyclerViewAdapter.setServicesList(servicesArrayList);
+                    oferecerViewModel.getRecyclerViewAdapter().setServicesList(servicesArrayList);
+                    //recyclerViewAdapter.setServicesList(servicesArrayList);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recyclerView.setAdapter(recyclerViewAdapter);
+                //recyclerView.setAdapter(recyclerViewAdapter);
+                recyclerView.setAdapter(oferecerViewModel.getRecyclerViewAdapter());
             }
         });
 
@@ -86,17 +99,27 @@ public class OferecerFragment extends Fragment implements LifecycleOwner, Oferec
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         binding = null;
+        if(oferecerViewModel!=null)
+            oferecerViewModel.onDestroy();
+        super.onDestroyView();
+
     }
 
     @Override
-    public void onRatingAdded(ServiceItem rating) {
-
+    public void onResume() {
+        super.onResume();
+        if(oferecerViewModel!=null)
+            oferecerViewModel.subscribeForServicesOfferedUpdates();
     }
 
     @Override
-    public void onRatingError(String error) {
-
+    public void onPause() {
+        if(oferecerViewModel!=null)
+            oferecerViewModel.unsubscribeForServicesOfferedUpdate();
+        super.onPause();
     }
+
+
+
 }
