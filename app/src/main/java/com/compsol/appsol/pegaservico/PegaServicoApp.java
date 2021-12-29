@@ -30,6 +30,10 @@ import com.compsol.appsol.pegaservico.oferecer.di.OferecerComponent;
 import com.compsol.appsol.pegaservico.oferecer.di.OferecerModule;
 import com.compsol.appsol.pegaservico.oferecer.ui.OferecerView;
 
+import com.compsol.appsol.pegaservico.pegar.di.DaggerPegarComponent;
+import com.compsol.appsol.pegaservico.pegar.di.PegarComponent;
+import com.compsol.appsol.pegaservico.pegar.di.PegarModule;
+import com.compsol.appsol.pegaservico.pegar.ui.PegarView;
 import com.compsol.appsol.pegaservico.servico.di.DaggerServicoComponent;
 import com.compsol.appsol.pegaservico.servico.di.ServicoComponent;
 import com.compsol.appsol.pegaservico.servico.di.ServicoModule;
@@ -102,6 +106,19 @@ public class PegaServicoApp extends Application {
                 .firebaseModule(firebaseModule)
                 .libsModule(libsModule)
                 .oferecerModule(new OferecerModule(view))
+                .build();
+    }
+
+    public PegarComponent getPegarComponent(PegarView view, Fragment fragment){
+
+        libsModule.setContext(fragment.getContext());
+
+        return DaggerPegarComponent
+                .builder()
+                .pegaServicoAppModule(pegaServicoAppModule)
+                .firebaseModule(firebaseModule)
+                .libsModule(libsModule)
+                .pegarModule(new PegarModule(view))
                 .build();
     }
 

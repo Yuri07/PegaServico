@@ -34,7 +34,7 @@ public class OferecerFragment extends Fragment implements LifecycleOwner{//}, Of
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
 
-    MyServiceListAdapter recyclerViewAdapter;
+    //MyServiceListAdapter recyclerViewAdapter;
     //@Inject
     //MyServiceListAdapter recyclerViewAdapter;
     //@Inject
@@ -110,13 +110,13 @@ public class OferecerFragment extends Fragment implements LifecycleOwner{//}, Of
     public void onResume() {
         super.onResume();
         if(oferecerViewModel!=null)
-            oferecerViewModel.subscribeForServicesOfferedUpdates();
+            oferecerViewModel.subscribeForMyServicesOfferedUpdates();
     }
 
     @Override
     public void onPause() {
         if(oferecerViewModel!=null)
-            oferecerViewModel.unsubscribeForServicesOfferedUpdate();
+            oferecerViewModel.unsubscribeForMyServicesOfferedUpdate();
         super.onPause();
     }
 

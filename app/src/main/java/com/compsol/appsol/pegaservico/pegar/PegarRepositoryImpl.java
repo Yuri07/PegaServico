@@ -1,28 +1,29 @@
-package com.compsol.appsol.pegaservico.oferecer;
+package com.compsol.appsol.pegaservico.pegar;
 
 import com.compsol.appsol.pegaservico.entities.ServiceItem;
 import com.compsol.appsol.pegaservico.firebase.FirebaseAPI;
 import com.compsol.appsol.pegaservico.firebase.FirebaseChildEventListenerCallback;
 import com.compsol.appsol.pegaservico.lib.base.EventBus;
 import com.compsol.appsol.pegaservico.oferecer.events.OferecerEvent;
+import com.compsol.appsol.pegaservico.pegar.events.PegarEvent;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
-public class OferecerRepositoryImpl implements OferecerRepository {
+public class PegarRepositoryImpl implements PegarRepository {
 
     private FirebaseAPI firebase;
     private EventBus eventBus;
 
 
-    public OferecerRepositoryImpl(FirebaseAPI firebase, EventBus eventBus) {
+    public PegarRepositoryImpl(FirebaseAPI firebase, EventBus eventBus) {
         this.firebase = firebase;
         this.eventBus = eventBus;
 
     }
 
     @Override
-    public void subscribeForMyServicesOfferedUpates() {
-        firebase.subscribeForMyServicesOfferedUpates(new FirebaseChildEventListenerCallback(){
+    public void subscribeForOfferedServicesUpdates() {
+        firebase.subscribeForOfferedServicesUpdates(new FirebaseChildEventListenerCallback(){
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot) {
@@ -51,11 +52,12 @@ public class OferecerRepositoryImpl implements OferecerRepository {
                 post(OferecerEvent.ERROR_EVENT, error.getMessage());
             }
         });
+
     }
 
     @Override
-    public void unSubscribeForMyServicesOfferedUpates() {
-        firebase.unSubscribeForMyServicesOfferedUpates();
+    public void unsubscribeForOfferedServicesUpdates() {
+        firebase.unsubscribeForOfferedServicesUpdates();
     }
 
     private void post(int type, ServiceItem serviceItem){
@@ -67,11 +69,11 @@ public class OferecerRepositoryImpl implements OferecerRepository {
     }
 
     private void post(int type, ServiceItem serviceItem, String error){
-        OferecerEvent oferecerEvent = new OferecerEvent();
-        oferecerEvent.setServiceItem(serviceItem);
-        oferecerEvent.setEventType(type);
-        oferecerEvent.setError(error);
-        eventBus.post(oferecerEvent);
+        PegarEvent pegarEvent = new PegarEvent();
+        pegarEvent.setServiceItem(serviceItem);
+        pegarEvent.setEventType(type);
+        pegarEvent.setError(error);
+        eventBus.post(pegarEvent);
     }
 
 }

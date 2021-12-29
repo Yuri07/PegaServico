@@ -9,15 +9,11 @@ import com.compsol.appsol.pegaservico.entities.User;
 import com.compsol.appsol.pegaservico.login.ui.LoginActivity;
 import com.compsol.appsol.pegaservico.main.MainPresenter;
 import com.compsol.appsol.pegaservico.main.di.MainComponent;
-import com.compsol.appsol.pegaservico.oferecer.ui.OferecerFragment;
-import com.compsol.appsol.pegaservico.pegar.PegarFragment;
-import com.compsol.appsol.pegaservico.perfil.PerfilFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;

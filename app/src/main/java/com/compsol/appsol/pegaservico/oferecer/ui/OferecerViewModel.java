@@ -124,14 +124,14 @@ public class OferecerViewModel extends ViewModel implements OferecerView {
 
 
 
-    public void subscribeForServicesOfferedUpdates() {
+    public void subscribeForMyServicesOfferedUpdates() {
         //if(presenter!=null)
-            presenter.subscribeForServicesOfferedUpdates();
+            presenter.subscribeForMyServicesOfferedUpdates();
     }
 
-    public void unsubscribeForServicesOfferedUpdate() {
+    public void unsubscribeForMyServicesOfferedUpdate() {
         //if(presenter!=null)
-            presenter.unsubscribeForServicesOfferedUpdates();
+            presenter.unsubscribeForMyServicesOfferedUpdates();
     }
 
 

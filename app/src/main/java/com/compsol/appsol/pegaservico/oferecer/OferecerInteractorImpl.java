@@ -9,12 +9,12 @@ public class OferecerInteractorImpl implements OferecerInteractor {
     }
 
     @Override
-    public void subscribeForServicesOfferedUpates() {
-        oferecerRepository.subscribeForServicesOfferedUpates();
+    public void subscribeForMyServicesOfferedUpates() {
+        oferecerRepository.subscribeForMyServicesOfferedUpates();
     }
 
     @Override
-    public void unSubscribeForServicesOfferedUpates() {
-        oferecerRepository.unSubscribeForServicesOfferedUpates();
+    public void unSubscribeForMyServicesOfferedUpates() {
+        oferecerRepository.unSubscribeForMyServicesOfferedUpates();
     }
 }

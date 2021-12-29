@@ -22,13 +22,13 @@ public class OferecerPresenterImpl implements OferecerPresenter {
     }
 
     @Override
-    public void subscribeForServicesOfferedUpdates() {
-        oferecerInteractor.subscribeForServicesOfferedUpates();
+    public void subscribeForMyServicesOfferedUpdates() {
+        oferecerInteractor.subscribeForMyServicesOfferedUpates();
     }
 
     @Override
-    public void unsubscribeForServicesOfferedUpdates() {
-        oferecerInteractor.unSubscribeForServicesOfferedUpates();
+    public void unsubscribeForMyServicesOfferedUpdates() {
+        oferecerInteractor.unSubscribeForMyServicesOfferedUpates();
     }
 
     @Override

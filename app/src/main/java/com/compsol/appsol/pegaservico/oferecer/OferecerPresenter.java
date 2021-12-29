@@ -4,8 +4,8 @@ import com.compsol.appsol.pegaservico.oferecer.events.OferecerEvent;
 
 public interface OferecerPresenter {
 
-    void   subscribeForServicesOfferedUpdates();
-    void unsubscribeForServicesOfferedUpdates();
+    void subscribeForMyServicesOfferedUpdates();
+    void unsubscribeForMyServicesOfferedUpdates();
 
     void registerInEventBus();
     void unregisterInEventBus();

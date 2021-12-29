@@ -228,7 +228,60 @@ public class FirebaseAPI {
         });*/
     }
 
-    public void subscribeForServicesOfferedUpates(final FirebaseChildEventListenerCallback listener) {
+    public void subscribeForMyServicesOfferedUpates(final FirebaseChildEventListenerCallback listener) {
+        if(servicesEventListener==null) {
+            servicesEventListener= new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    listener.onChildAdded(dataSnapshot);
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    listener.onCancelled(databaseError);
+                }
+            };
+
+            getMyOfferedServicessReference().addChildEventListener(servicesEventListener);
+
+        }
+    }
+
+    public void unSubscribeForMyServicesOfferedUpates() {
+
+        getMyOfferedServicessReference().removeEventListener(servicesEventListener);
+        servicesEventListener = null;
+
+    }
+
+    public DatabaseReference getMyOfferedServicessReference(){
+        String keyUser = getAuthUserEmail().replace(".","_");
+
+
+        //String keyChat = keyReceiver + SEPARATOR + keySender;
+        /*if (keySender.compareTo(keyReceiver) > 0) {//Esse método retorna um numero inteiro. Se ele for menor do que zero, o primeiro argumento é "menor" (alfabeticamente, nesse caso) que o segundo; maior que zero se o primeiro for "maior" que o segundo, e igual a zero se eles forem iguais. Esse método diferencia maiúsculas de minúsuclas. Se não quiser isso, use o compareToIgnoreCase
+            keyChat = keyReceiver + SEPARATOR + keySender;//sempre o primeiro em ordem alfabetica vem primeiro
+        }*/
+        return databaseReference.getRoot().child(USERS_PATH).child(keyUser).child(HISTORIC_SERVICES_PATH);
+    }
+
+
+    public void subscribeForOfferedServicesUpdates(final FirebaseChildEventListenerCallback listener) {
         if(servicesEventListener==null) {
             servicesEventListener= new ChildEventListener() {
                 @Override
@@ -262,7 +315,7 @@ public class FirebaseAPI {
         }
     }
 
-    public void unSubscribeForChatUpdates() {
+    public void unsubscribeForOfferedServicesUpdates() {
 
         getOfferedServicessReference().removeEventListener(servicesEventListener);
         servicesEventListener = null;
@@ -272,13 +325,7 @@ public class FirebaseAPI {
     public DatabaseReference getOfferedServicessReference(){
         String keyUser = getAuthUserEmail().replace(".","_");
 
-
-        //String keyChat = keyReceiver + SEPARATOR + keySender;
-        /*if (keySender.compareTo(keyReceiver) > 0) {//Esse método retorna um numero inteiro. Se ele for menor do que zero, o primeiro argumento é "menor" (alfabeticamente, nesse caso) que o segundo; maior que zero se o primeiro for "maior" que o segundo, e igual a zero se eles forem iguais. Esse método diferencia maiúsculas de minúsuclas. Se não quiser isso, use o compareToIgnoreCase
-            keyChat = keyReceiver + SEPARATOR + keySender;//sempre o primeiro em ordem alfabetica vem primeiro
-        }*/
-        return databaseReference.getRoot().child(USERS_PATH).child(keyUser).child(HISTORIC_SERVICES_PATH);
+        return databaseReference.getRoot().child(SERVICES_PATH).child(WAITING_SERVICES_PATH);
     }
-
 
 }

@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_pegar"
-        android:name="com.compsol.appsol.pegaservico.pegar.PegarFragment"
+        android:name="com.compsol.appsol.pegaservico.pegar.ui.PegarFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_pegar" />
 

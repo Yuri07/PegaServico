@@ -2,7 +2,7 @@ package com.compsol.appsol.pegaservico.oferecer;
 
 public interface OferecerRepository {
 
-    void subscribeForServicesOfferedUpates();
+    void subscribeForMyServicesOfferedUpates();
 
-    void unSubscribeForServicesOfferedUpates();
+    void unSubscribeForMyServicesOfferedUpates();
 }
