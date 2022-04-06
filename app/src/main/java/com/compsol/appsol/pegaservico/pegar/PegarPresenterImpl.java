@@ -44,6 +44,11 @@ public class PegarPresenterImpl implements PegarPresenter{
     }
 
     @Override
+    public void applyForService(ServiceItem service) {
+        pegarInteractor.applyForService(service);
+    }
+
+    @Override
     @Subscribe
     public void onEventMainThread(PegarEvent event) {
         if (pegarView != null) {

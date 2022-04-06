@@ -9,7 +9,7 @@ public class ServiceItemBuilder {
     private String entrada;
     private int periodo;
     private double valor;
-    private int status;
+    private String status;
     private String urlPhotoUser;
 
     public ServiceItemBuilder serviceID(String serviceId){
@@ -47,7 +47,7 @@ public class ServiceItemBuilder {
         return this;
     }
 
-    public ServiceItemBuilder status(int status) {
+    public ServiceItemBuilder status(String status) {
         this.status = status;
         return this;
     }

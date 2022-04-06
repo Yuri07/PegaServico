@@ -67,33 +67,25 @@ public class OferecerViewModel extends ViewModel implements OferecerView {
 
     public void populateListMockData(){
 
-        ServiceItem user = new ServiceItem();
-        user.setNome("Darknight");
-        user.setData("10/10;2021");
-        user.setEntrada("08:00");
-        user.setPeriodo(12);
-        user.setStatus(ServiceItem.waitingAcceptStatus);
-        user.setValor(80.0);
-        user.setUrlPhotoUser("url_foto");
+        ServiceItem service = new ServiceItem();
+        service.setNome("Darknight");
+        service.setData("10/10;2021");
+        service.setEntrada("08:00");
+        service.setPeriodo(12);
+        service.setStatus(ServiceItem.waitingAcceptStatus);
+        service.setValor(80.0);
+        service.setUrlPhotoUser("url_foto");
 
 
         serviceArrayList = new ArrayList<>();
-        serviceArrayList.add(user);
-        serviceArrayList.add(user);
-        serviceArrayList.add(user);
-        serviceArrayList.add(user);
-        serviceArrayList.add(user);
-        serviceArrayList.add(user);
-        serviceArrayList.add(user);
-        serviceArrayList.add(user);
-        serviceArrayList.add(user);
-        serviceArrayList.add(user);
-        serviceArrayList.add(user);
-        serviceArrayList.add(user);
-        serviceArrayList.add(user);
-        serviceArrayList.add(user);
-        serviceArrayList.add(user);
-        serviceArrayList.add(user);
+        serviceArrayList.add(service);
+        serviceArrayList.add(service);
+        serviceArrayList.add(service);
+        serviceArrayList.add(service);
+        serviceArrayList.add(service);
+        serviceArrayList.add(service);
+        serviceArrayList.add(service);
+
 
     }
 
@@ -131,7 +123,9 @@ public class OferecerViewModel extends ViewModel implements OferecerView {
 
     public void unsubscribeForMyServicesOfferedUpdate() {
         //if(presenter!=null)
-            presenter.unsubscribeForMyServicesOfferedUpdates();
+        presenter.unsubscribeForMyServicesOfferedUpdates();
+        serviceArrayList.clear();
+        serviceLiveData.setValue(serviceArrayList);
     }
 
 

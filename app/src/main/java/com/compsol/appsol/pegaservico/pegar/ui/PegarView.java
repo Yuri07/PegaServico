@@ -7,4 +7,6 @@ public interface PegarView {
     void onServiceReceived(ServiceItem service);
     void onServiceReceivedError(String error);
 
+    void onServiceClickedToCatch(ServiceItem service);
+
 }

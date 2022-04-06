@@ -2,8 +2,10 @@ package com.compsol.appsol.pegaservico.pegar;
 
 import com.compsol.appsol.pegaservico.entities.ServiceItem;
 import com.compsol.appsol.pegaservico.firebase.FirebaseAPI;
+import com.compsol.appsol.pegaservico.firebase.FirebaseActionListenerCallback;
 import com.compsol.appsol.pegaservico.firebase.FirebaseChildEventListenerCallback;
 import com.compsol.appsol.pegaservico.lib.base.EventBus;
+import com.compsol.appsol.pegaservico.main.events.MainEvent;
 import com.compsol.appsol.pegaservico.oferecer.events.OferecerEvent;
 import com.compsol.appsol.pegaservico.pegar.events.PegarEvent;
 import com.google.firebase.database.DataSnapshot;
@@ -23,13 +25,16 @@ public class PegarRepositoryImpl implements PegarRepository {
 
     @Override
     public void subscribeForOfferedServicesUpdates() {
+
+        final String myUserEmail = firebase.getAuthUserEmail();
+
         firebase.subscribeForOfferedServicesUpdates(new FirebaseChildEventListenerCallback(){
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot) {
                 ServiceItem serviceItem = dataSnapshot.getValue(ServiceItem.class);
-
-                post(OferecerEvent.READ_EVENT, serviceItem);
+                if(!serviceItem.getEmail().equals(myUserEmail))
+                    post(OferecerEvent.READ_EVENT, serviceItem);
             }
 
             @Override
@@ -58,6 +63,31 @@ public class PegarRepositoryImpl implements PegarRepository {
     @Override
     public void unsubscribeForOfferedServicesUpdates() {
         firebase.unsubscribeForOfferedServicesUpdates();
+    }
+
+    @Override
+    public void applyForService(ServiceItem service) {
+        firebase.applyForService(service, new FirebaseActionListenerCallback() {
+            @Override
+            public void onSuccess() {
+                post(PegarEvent.onSuccessToApplyForService);
+            }
+
+            @Override
+            public void onError(DatabaseError error) {
+                post(PegarEvent.onSuccessToApplyForService);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
     }
 
     private void post(int type, ServiceItem serviceItem){

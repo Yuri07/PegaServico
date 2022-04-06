@@ -20,6 +20,7 @@ import com.compsol.appsol.pegaservico.pegar.PegarRepository;
 import com.compsol.appsol.pegaservico.pegar.PegarRepositoryImpl;
 import com.compsol.appsol.pegaservico.pegar.adapters.OfferedServicesListAdapter;
 import com.compsol.appsol.pegaservico.pegar.ui.PegarView;
+import com.compsol.appsol.pegaservico.pegar.ui.PegarViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,13 +62,15 @@ public class PegarModule {
     }
 
     @Provides @Singleton
-    OfferedServicesListAdapter providesPegarAdapter(List<ServiceItem> pegarList, ImageLoader imageLoader) {
-        return new OfferedServicesListAdapter(pegarList, imageLoader);
+    OfferedServicesListAdapter providesPegarAdapter(List<ServiceItem> pegarList, ImageLoader imageLoader, PegarView view) {
+        return new OfferedServicesListAdapter(pegarList, imageLoader, view);
     }
 
     @Provides @Singleton
     List<ServiceItem> providesPegarList() {
         return new ArrayList<ServiceItem>();
     }
+
+
 
 }

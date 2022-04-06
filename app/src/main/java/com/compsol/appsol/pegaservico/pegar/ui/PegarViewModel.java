@@ -74,6 +74,14 @@ public class PegarViewModel extends ViewModel implements PegarView{
         Log.e(TAG, "onServiceReceivedError: ", null);
     }
 
+    @Override
+    public void onServiceClickedToCatch(ServiceItem service) {
+        //servico clicadono ListAdapter dos servicos a serem pegos(metodo chamado no OfferedServicesListAdapter)
+
+        presenter.applyForService(service);
+
+    }
+
     public void onCreate() {
         presenter.registerInEventBus();
     }
@@ -90,6 +98,8 @@ public class PegarViewModel extends ViewModel implements PegarView{
     public void unsubscribeForServicesOfferedUpdate() {
         //if(presenter!=null)
         presenter.unsubscribeForOfferedServicesUpdates();
+        serviceArrayList.clear();
+        serviceLiveData.setValue(serviceArrayList);
     }
 
 }

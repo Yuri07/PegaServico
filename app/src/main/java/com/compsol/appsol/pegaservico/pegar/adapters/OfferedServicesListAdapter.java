@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,8 @@ import com.compsol.appsol.pegaservico.R;
 import com.compsol.appsol.pegaservico.entities.ServiceItem;
 import com.compsol.appsol.pegaservico.lib.base.ImageLoader;
 import com.compsol.appsol.pegaservico.oferecer.adapters.MyServiceListAdapter;
+import com.compsol.appsol.pegaservico.pegar.ui.PegarView;
+import com.compsol.appsol.pegaservico.pegar.ui.PegarViewModel;
 
 import java.util.List;
 
@@ -25,10 +28,12 @@ public class OfferedServicesListAdapter extends RecyclerView.Adapter<OfferedServ
 
     private List<ServiceItem> servicesList;
     private ImageLoader imageLoader;
+    private PegarView pegarView;
 
-    public OfferedServicesListAdapter(List<ServiceItem> servicesList, ImageLoader imageLoader){
+    public OfferedServicesListAdapter(List<ServiceItem> servicesList, ImageLoader imageLoader, PegarView view){
         this.servicesList = servicesList;
         this.imageLoader = imageLoader;
+        this.pegarView = view;
     }
 
     @NonNull
@@ -53,6 +58,15 @@ public class OfferedServicesListAdapter extends RecyclerView.Adapter<OfferedServ
         holder.txtPeriod.setText(service.getPeriodo()+"");
         holder.txtValue.setText(service.getValor()+"");
 
+        holder.pegarButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pegarView.onServiceClickedToCatch(service);
+                    }
+                }
+        );
+
         if (position + 1 == getItemCount()) {
             // It is the last item of the list
 
@@ -62,6 +76,15 @@ public class OfferedServicesListAdapter extends RecyclerView.Adapter<OfferedServ
             // Reset bottom margin back to zero
             setBottomMargin(holder.itemView, 0);
         }
+
+        holder.itemView.setOnClickListener(v -> {
+            // Get the current state of the item
+            //boolean expanded = service.isExpanded();      //codigo para expandir item view ao tocar nele
+            // Change the state
+            //service.setExpanded(!expanded);
+            // Notify the adapter that item has changed
+            notifyItemChanged(position);
+        });
 
     }
 
@@ -123,6 +146,8 @@ public class OfferedServicesListAdapter extends RecyclerView.Adapter<OfferedServ
         TextView txtPeriod;
         @BindView(R.id.txtValue)
         TextView txtValue;
+        @BindView(R.id.sub_item_pegar)
+        Button pegarButton;
 
         View view;
 
@@ -130,7 +155,27 @@ public class OfferedServicesListAdapter extends RecyclerView.Adapter<OfferedServ
             super(itemView);
             this.view = itemView;
             ButterKnife.bind(this, itemView);
+
+            /*pegarButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });*/
+
         }
+
+        private void bind(ServiceItem service) {
+            // Get the state        //codigo para expandir item view ao tocar nele
+            //boolean expanded = service.isExpanded();
+            // Set the visibility based on state
+            //service.setVisibility(expanded ? View.VISIBLE : View.GONE);
+
+            //title.setText(movie.getTitle());
+            //genre.setText("Genre: " + movie.getGenre());
+            //year.setText("Year: " + movie.getYear());
+        }
+
     }
 
 }

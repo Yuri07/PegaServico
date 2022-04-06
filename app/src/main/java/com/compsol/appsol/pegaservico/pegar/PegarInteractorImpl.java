@@ -1,5 +1,6 @@
 package com.compsol.appsol.pegaservico.pegar;
 
+import com.compsol.appsol.pegaservico.entities.ServiceItem;
 import com.compsol.appsol.pegaservico.oferecer.OferecerRepository;
 
 public class PegarInteractorImpl implements PegarInteractor{
@@ -18,6 +19,11 @@ public class PegarInteractorImpl implements PegarInteractor{
     @Override
     public void unsubscribeForOfferedServicesUpdates() {
         pegarRepository.unsubscribeForOfferedServicesUpdates();
+    }
+
+    @Override
+    public void applyForService(ServiceItem service) {
+        pegarRepository.applyForService(service);
     }
 
 }

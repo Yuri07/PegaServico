@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,7 +48,7 @@ public class MyServiceListAdapter extends RecyclerView.Adapter<MyServiceListAdap
             //imageLoader.load(holder.imgAvatar, urlPhotoUser);
 
         holder.txtNomeUser.setText(service.getNome());
-        holder.txtStatus.setText(service.getStatus()+"");
+        holder.txtStatus.setText(service.getStatus());//getStatusText(service.getStatus()) );
         holder.txtData.setText(service.getData());
         holder.txtTime.setText(service.getEntrada());
         holder.txtPeriod.setText(service.getPeriodo()+"");
@@ -64,6 +65,22 @@ public class MyServiceListAdapter extends RecyclerView.Adapter<MyServiceListAdap
         }
 
     }
+
+    /*private String getStatusText(int status) {
+        switch (status){
+            case(ServiceItem.waitingAcceptStatus):
+                return "Esperando";
+            case(ServiceItem.acceptedStatus):
+                return "Aceito";
+            case(ServiceItem.confirmedStatus):
+                return "Confirmado";
+            case(ServiceItem.inProgressStatus):
+                return "Em Progresso";
+            case(ServiceItem.concludedStatus):
+                return "Concluído";
+        }
+        return "";
+    }*/
 
     private static void setBottomMargin(View view, int bottomMargin) {//https://gist.github.com/rodrigoborgesdeoliveira/a37b1534969fe4e9ada0bb440b8f4b4b
         if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
@@ -123,6 +140,8 @@ public class MyServiceListAdapter extends RecyclerView.Adapter<MyServiceListAdap
         TextView txtPeriod;
         @BindView(R.id.txtValue)
         TextView txtValue;
+        @BindView(R.id.sub_item_pegar)
+        Button pegarButton;
 
         View view;
 
@@ -130,6 +149,7 @@ public class MyServiceListAdapter extends RecyclerView.Adapter<MyServiceListAdap
             super(itemView);
             this.view = itemView;
             ButterKnife.bind(this, itemView);
+            pegarButton.setVisibility(itemView.GONE);
         }
     }
 }

@@ -14,22 +14,22 @@ public class ServiceItem {
     private String entrada;
     private int periodo;
     private double valor;
-    private int status;
+    private String status;
     private String urlPhotoUser;
     private String receiverEmail;
 
-    public final static int waitingAcceptStatus = 101;
-    public final static int acceptedStatus = 102;
-    public final static int confirmedStatus = 103;
-    public final static int inProgressStatus = 104;
-    public final static int concludedStatus = 105;
+    public final static String waitingAcceptStatus = "Esperando";
+    public final static String acceptedStatus = "Aceito";
+    public final static String confirmedStatus = "Confirmado";
+    public final static String inProgressStatus = "Em Progresso";
+    public final static String concludedStatus = "Concluído";
 
     public ServiceItem() {
 
     }
 
     public ServiceItem(String email, String nome, String data, String entrada, int periodo,
-                                                double valor, int status, String urlPhotoUser) {
+                                                double valor, String status, String urlPhotoUser) {
         this.email = email;
         this.nome = nome;
         this.data = data;
@@ -96,11 +96,11 @@ public class ServiceItem {
         this.valor = valor;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

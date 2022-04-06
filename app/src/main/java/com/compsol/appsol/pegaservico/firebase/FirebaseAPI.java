@@ -322,6 +322,21 @@ public class FirebaseAPI {
 
     }
 
+    public void applyForService(ServiceItem service, FirebaseActionListenerCallback listener){
+        String userEmail = getAuthUserEmail();
+        if(userEmail!=null) {
+            String userEmailKey = userEmail.replace(".","_");
+            DatabaseReference serviceCandidatesPathReference = databaseReference.getRoot()
+                    .child(NOTIFICATION_TOKEN_PATH)
+                    .child(userEmailKey)
+                    .child(TOKEN_PATH);
+            myTokenReference.setValue(token);
+            listener.onSuccess();
+        }else{
+            listener.onError();
+        }
+    }
+
     public DatabaseReference getOfferedServicessReference(){
         String keyUser = getAuthUserEmail().replace(".","_");
 
